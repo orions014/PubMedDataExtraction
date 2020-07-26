@@ -1,5 +1,5 @@
 # PubMedDataExtraction
-Install this libraries first 
+Install these libraries first 
 
 pip install pymed
 
