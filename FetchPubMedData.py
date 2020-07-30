@@ -17,7 +17,8 @@ class FetchPubMedData():
         self.zip_code_provider = ZipCodeProvider()
         self.state_dict = self.zip_code_provider.my_dict
         self.us_state_list = self.zip_code_provider.state_list
-        print(self.state_dict)
+        # print(self.state_dict)
+        self.is_us = False
 
     def get_address_with_zipcode(self, affiliation):
 
@@ -35,10 +36,11 @@ class FetchPubMedData():
         for wrd in set(all_noun):
             try:
                 self.state_dict["us"][wrd]
+                self.is_us = True
                 for place in all_noun:
                     try:
                         zipcode = str(self.state_dict['us'][wrd][place])
-                        print("Not Failed at all!")
+                        # print("Not Failed at all!")
                         break
 
                     except:
@@ -48,10 +50,11 @@ class FetchPubMedData():
                         first_value = next(value_iterator)
                         zipcode = first_value
                         # print(first_value)
-                        print("Failed in places.")
+                        # print("Failed in places.")
 
             except:
-                print("Failed for US states")
+                pass
+                # print("Failed for US states")
 
         return zipcode
 
@@ -96,15 +99,17 @@ class FetchPubMedData():
             publication_date = jsonData['publication_date'] or "<NOT_AVAILABLE>"
             journal = jsonData['journal'] or "<NOT_AVAILABLE>"
 
-            csv_data["authors_name"].append(authors_name)
-            csv_data["affiliation"].append(authors_affiliation)
-            csv_data["authors_institute"].append(authors_institute)
-            csv_data["paper_title"].append(paper_title)
-            csv_data["publication_date"].append(publication_date)
-            csv_data["journal"].append(journal)
-            csv_data["authors_address"].append(authors_address)
-            csv_data["number_of_authors"].append(num_authors)
-            csv_data["authors_zipcode"].append(authors_zipcode)
+            if self.is_us:
+                csv_data["authors_name"].append(authors_name)
+                csv_data["affiliation"].append(authors_affiliation)
+                csv_data["authors_institute"].append(authors_institute)
+                csv_data["paper_title"].append(paper_title)
+                csv_data["publication_date"].append(publication_date)
+                csv_data["journal"].append(journal)
+                csv_data["authors_address"].append(authors_address)
+                csv_data["number_of_authors"].append(num_authors)
+                csv_data["authors_zipcode"].append(authors_zipcode)
+                self.is_us = False
 
             df = pd.DataFrame(csv_data)
             # print(df.head())
