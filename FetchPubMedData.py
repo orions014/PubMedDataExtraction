@@ -58,7 +58,7 @@ class FetchPubMedData():
 
         return zipcode
 
-    def getPubMedData(self,query,maximum_number_of_value=3):
+    def getPubMedData(self,query,maximum_number_of_value=1000):
         csv_data = {"affiliation":[],"number_of_authors":[],"authors_name": [],"authors_institute":[],"authors_address":[],"authors_zipcode":[],
                            "paper_title":[],"publication_date":[],"journal":[]}
         pubmed = PubMed(tool="MyTool", email="my@email.address")
