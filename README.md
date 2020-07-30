@@ -1,6 +1,8 @@
 # PubMedDataExtraction
 Install these libraries first 
 
+pip install nltk
+
 pip install pymed
 
 
