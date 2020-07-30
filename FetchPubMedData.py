@@ -3,7 +3,7 @@ from address_parser import Parser
 import json
 import pandas as pd
 import en_core_web_sm
-from zipCodeProvider import ZipCodeProvider
+from ZipCodeProvider import ZipCodeProvider
 import nltk
 from nltk.tag import pos_tag, map_tag
 nltk.download('universal_tagset')
