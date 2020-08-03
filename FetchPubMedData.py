@@ -23,6 +23,7 @@ class FetchPubMedData():
 
     def validate(self,date_text):
         try:
+            print("Date",date_text)
             datetime.datetime.strptime(date_text, '%Y/%m/%d')
             return True
         except:
@@ -156,7 +157,10 @@ class FetchPubMedData():
         if len(csv_data["paper_title"]) > 0:
             df = pd.DataFrame(csv_data)
             print(df.head())
-            df.to_csv("PubMedData_from.csv", index=False)
+            datetimeobject = datetime.datetime.strptime(date, '%Y/%m/%d')
+            csv_file_name = "PubMedData_From_" + datetimeobject.strftime('%Y_%m_%d')+".csv"
+            print(csv_file_name)
+            df.to_csv(csv_file_name, index=False)
 
 
 
